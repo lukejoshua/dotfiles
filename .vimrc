@@ -1,24 +1,3 @@
-call plug#begin('~/.vim/plugged')
-	Plug 'tpope/vim-sensible'
-	Plug 'airblade/vim-gitgutter'
-	Plug 'scrooloose/nerdtree'
-	Plug 'ntpeters/vim-better-whitespace'
-	Plug 'itchyny/lightline.vim'
-	Plug 'ervandew/supertab'
-
-	" SYNTAX
-	Plug 'leafgarland/typescript-vim'
-	Plug 'jelera/vim-javascript-syntax'
-	Plug 'justinmk/vim-syntax-extra'
-	" Plug 'pangloss/vim-javascript'
-
-	" COLORSCHEMES
-	Plug 'dunckr/vim-monokai-soda'
-	Plug 'sfi0zy/atlantic-dark.vim'
-	Plug 'koirand/tokyo-metro.vim'
-	Plug 'vim-scripts/Gummybears'
-call plug#end()
-
 filetype plugin on
 syntax on
 set textwidth=80
@@ -29,17 +8,48 @@ set number
 set relativenumber
 set termguicolors
 set noshowmode
-" set cursorline
+set cursorline
 
-let g:lightline = { 'colorscheme' : 'wombat'}
+" Magic from the internet (https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f)
+" <MAGIC>
+function! MyHighlights() abort
+    highlight Normal NONE 
+    highlight NonText NONE
+endfunction
 
-map <C-n> :NERDTreeToggle<CR>
+augroup MyColors
+    autocmd!
+    autocmd ColorScheme * call MyHighlights()
+augroup END
+" </MAGIC>
+
+call plug#begin('~/.vim/plugged')
+	" GENERAL
+	Plug 'tpope/vim-sensible'
+	Plug 'airblade/vim-gitgutter'
+	Plug 'scrooloose/nerdtree'
+	Plug 'ntpeters/vim-better-whitespace'
+	Plug 'itchyny/lightline.vim'
+	Plug 'ervandew/supertab'
+	let g:lightline = { 'colorscheme' : 'wombat'}
+	map <C-n> :NERDTreeToggle<CR>
+
+	" SYNTAX
+	Plug 'leafgarland/typescript-vim'
+	Plug 'jelera/vim-javascript-syntax'
+	Plug 'justinmk/vim-syntax-extra'
+
+	" COLORSCHEMES
+	Plug 'dunckr/vim-monokai-soda'
+	Plug 'sfi0zy/atlantic-dark.vim'
+	Plug 'koirand/tokyo-metro.vim'
+	Plug 'vim-scripts/Gummybears'
+call plug#end()
+
 " colorscheme monokai-soda
 " colorscheme atlantic-dark
 " colorscheme tokyo-metro
 colorscheme gummybears
-hi Normal guibg=NONE ctermbg=NONE ctermfg=NONE
-hi NonText ctermbg=NONE guibg=NONE ctermfg=NONE
 
 " SIMPL
 au BufRead,BufNewFile *.simpl setfiletype simpl
