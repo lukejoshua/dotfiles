@@ -11,7 +11,7 @@ class Charge:
 
     def __str__(self):
         """Returns a string of the form "q @ (x, y)"""
-        return "{} @ ({}, {})".format(q, x, y)
+        return "{} @ ({}, {})".format(self.q, self.x, self.y)
 
     def __repr__(self):
         return str(self)
