@@ -45,7 +45,7 @@ class Complex:
             operator = ""
         else:
             operator = "+"
-        return "{}{}{}i".format(self.a, operator, self.b)
+        return "({:6f}{}{:6f}i)".format(self.a, operator, self.b)
 
     def __repr__(self):
         return str(self)
