@@ -7,6 +7,7 @@ end
 abbr -a gst git status
 
 # chezmoi
+abbr cz chezmoi 
 abbr czcd chezmoi cd
 abbr czed chezmoi edit
 abbr czgt chezmoi git
