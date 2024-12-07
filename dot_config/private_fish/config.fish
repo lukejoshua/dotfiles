@@ -5,12 +5,16 @@ end
 
 # git
 abbr -a gst git status
+abbr -a lg lazygit
+
+# neovim
+abbr -a n nvim
 
 # chezmoi
-abbr cz chezmoi 
-abbr czcd chezmoi cd
-abbr czed chezmoi edit
-abbr czgt chezmoi git
+abbr -a cz chezmoi 
+abbr -a czcd chezmoi cd
+abbr -a czed chezmoi edit
+abbr -a czgt chezmoi git
 
 function fish_prompt --description 'Write out the prompt'
     set -l last_pipestatus $pipestatus
