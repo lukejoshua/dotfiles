@@ -1,0 +1,8 @@
+tap "homebrew/bundle"
+
+# GNU compiler collection
+brew "gcc"
+
+brew "chezmoi"
+brew "gh"
+brew "lazygit"
