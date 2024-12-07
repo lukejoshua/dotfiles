@@ -4,5 +4,6 @@ tap "homebrew/bundle"
 brew "gcc"
 
 brew "chezmoi"
-brew "gh"
+brew "fish"
 brew "lazygit"
+brew "gh"
