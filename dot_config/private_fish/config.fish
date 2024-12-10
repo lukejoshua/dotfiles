@@ -3,6 +3,9 @@ if status is-interactive
     fish_vi_key_bindings
 end
 
+set -x EDITOR nvim
+set -x SHELL fish
+
 # git
 abbr -a gst git status
 abbr -a lg lazygit
@@ -11,10 +14,16 @@ abbr -a lg lazygit
 abbr -a n nvim
 
 # chezmoi
-abbr -a cz chezmoi 
+abbr -a cz chezmoi
 abbr -a czcd chezmoi cd
 abbr -a czed chezmoi edit
 abbr -a czgt chezmoi git
+
+# homebrew
+abbr -a bb brew bundle --global
+
+# zellij
+abbr -a z zellij -l welcome
 
 function fish_prompt --description 'Write out the prompt'
     set -l last_pipestatus $pipestatus
@@ -47,3 +56,7 @@ function fish_prompt --description 'Write out the prompt'
 
     echo -n -s (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status $suffix " "
 end
+
+zoxide init --cmd c fish | source
+
+source /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.fish

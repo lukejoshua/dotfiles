@@ -11,5 +11,21 @@ brew "gh"
 
 brew "ripgrep"
 brew "fd"
+brew "fzf"
+
+brew "zig"
+brew "zellij"
+brew "zoxide"
+
+brew "asdf"
+
+# asdf dependencies:
+# brew "coreutils"
+# brew "curl"
+# brew "git"
+
+# asdf nodejs dependencies:
+# brew "gawk"
+# brew "gpg"
 
 cask "font-jetbrains-mono-nerd-font"
