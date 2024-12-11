@@ -18,6 +18,14 @@ return {
     }
   },
   {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        theme = "ivy"
+      }
+    }
+  },
+  {
     "chrisgrieser/nvim-spider",
     lazy = true
   },
