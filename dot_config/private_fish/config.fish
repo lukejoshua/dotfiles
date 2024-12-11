@@ -58,5 +58,7 @@ function fish_prompt --description 'Write out the prompt'
 end
 
 zoxide init --cmd c fish | source
+fzf --fish | source # fzf keybindings
+
 
 source /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.fish

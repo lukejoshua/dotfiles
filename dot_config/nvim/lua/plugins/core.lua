@@ -21,11 +21,52 @@ return {
     "nvim-telescope/telescope.nvim",
     opts = {
       pickers = {
-        find_files = {
-          theme = "ivy"
-        }
+        find_files = { theme = "ivy" }
       }
     }
+  },
+  {
+    'stevearc/oil.nvim',
+    config = function()
+      local oil = require('oil')
+
+      oil.setup({
+        keymaps = {
+          ["<C-m>"] = "actions.preview",
+        }
+      })
+
+      -- https://github.com/stevearc/oil.nvim/issues/87#issuecomment-2179322405
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "OilEnter",
+        callback = vim.schedule_wrap(function(args)
+          if vim.api.nvim_get_current_buf() == args.data.buf and oil.get_cursor_entry() then
+            oil.open_preview({ split = "belowright" })
+          end
+        end),
+      })
+    end,
+    keys = {
+      { "<C-n>", "<CMD>Oil<CR>", desc = "Open parent directory" }
+    },
+    -- Optional dependencies
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+  },
+  {
+    "folke/flash.nvim",
+    opts = {
+      label = {
+        rainbow = { enabled = true }
+      }
+    }
+  },
+
+  {
+    "folke/zen-mode.nvim",
+    keys = {
+      { "<leader>uz", "<CMD>ZenMode<CR>", desc = "Toggle Zen Mode" }
+    },
+
   },
   {
     "chrisgrieser/nvim-spider",
@@ -68,9 +109,22 @@ return {
   -- TODO: supertab?
   -- TODO: make sure formatting works
   { import = "lazyvim.plugins.extras.coding.mini-surround" },
+  {
+    "echasnovski/mini.surround",
+    opts = {
+      mappings = {
+        add = 'ys',     -- Add surrounding in Normal and Visual modes
+        delete = 'ds',  -- Delete surrounding
+        replace = 'cs', -- Replace surrounding
+        -- find = 'gzf', -- Find surrounding (to the right)
+        -- find_left = 'gzF', -- Find surrounding (to the left)
+        -- highlight = 'gzh', -- Highlight surrounding
+        -- update_n_lines = 'gzn', -- Update `n_lines`
+      }
+    }
+  },
   { import = "lazyvim.plugins.extras.coding.yanky" },
   { import = "lazyvim.plugins.extras.editor.dial" },
-  { import = "lazyvim.plugins.extras.editor.refactoring" },
 
   { import = "lazyvim.plugins.extras.dap.core" },
 
@@ -93,6 +147,7 @@ return {
   -- { import = "lazyvim.plugins.extras.ui.edgy" },
 
   { import = "lazyvim.plugins.extras.formatting.prettier" },
+  { import = "lazyvim.plugins.extras.linting.eslint" },
 
   -- Languages
   { import = "lazyvim.plugins.extras.lang.angular" },
