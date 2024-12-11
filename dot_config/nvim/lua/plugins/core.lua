@@ -20,8 +20,10 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     opts = {
-      defaults = {
-        theme = "ivy"
+      pickers = {
+        find_files = {
+          theme = "ivy"
+        }
       }
     }
   },
@@ -90,6 +92,7 @@ return {
   -- TODO: consider edgy.nvim for creating layouts
   -- { import = "lazyvim.plugins.extras.ui.edgy" },
 
+  { import = "lazyvim.plugins.extras.formatting.prettier" },
 
   -- Languages
   { import = "lazyvim.plugins.extras.lang.angular" },
