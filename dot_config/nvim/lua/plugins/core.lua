@@ -54,9 +54,10 @@ return {
   },
   {
     "folke/flash.nvim",
+    ---@type Flash.Config
     opts = {
       label = {
-        rainbow = { enabled = true }
+        rainbow = { enabled = true, shade = 1 }
       }
     }
   },
@@ -65,6 +66,7 @@ return {
     "folke/zen-mode.nvim",
     keys = {
       { "<leader>uz", "<CMD>ZenMode<CR>", desc = "Toggle Zen Mode" }
+
     },
 
   },
@@ -93,21 +95,15 @@ return {
       -- e.g., disabled_buftypes = {"nofile"}
       disabled_buftypes = {},
 
-      -- add eyeliner to f/F/t/T keymaps;
       -- see section on advanced configuration for more information
       default_keymaps = true,
     }
   },
 
-  -- TODO: use oil instead of neo tree
   -- TODO: clean up status line
-  -- TODO: Remap ; to :
   -- TODO: pinned tabs instead of arrow/harpoon? Including <leader>1, <leader2>, <leader>h
-  -- TODO: Better flash colours
-  -- TODO: reconsider tokyonight and a way to switch easily
   -- TODO: consider different keymaps
   -- TODO: supertab?
-  -- TODO: make sure formatting works
   { import = "lazyvim.plugins.extras.coding.mini-surround" },
   {
     "echasnovski/mini.surround",
