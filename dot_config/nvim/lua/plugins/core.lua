@@ -73,15 +73,6 @@ return {
       }
     }
   },
-
-  {
-    "folke/zen-mode.nvim",
-    keys = {
-      { "<leader>uz", "<CMD>ZenMode<CR>", desc = "Toggle Zen Mode" }
-
-    },
-
-  },
   {
     "chrisgrieser/nvim-spider",
     lazy = true
