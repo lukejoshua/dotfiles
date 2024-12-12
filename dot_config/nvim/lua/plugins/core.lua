@@ -21,7 +21,7 @@ return {
     "nvim-telescope/telescope.nvim",
     opts = {
       pickers = {
-        find_files = { theme = "ivy" }
+        find_files = { theme = "ivy" },
       }
     }
   },
@@ -64,7 +64,7 @@ return {
         jump = { pos = "range", autojump = true },
         search = { incremental = false },
         label = {
-          style = "eol", ---@type "eol" | "overlay" | "right_align" | "inline"
+          style = "inline", ---@type "eol" | "overlay" | "right_align" | "inline"
         },
         highlight = {
           backdrop = true,
@@ -80,6 +80,7 @@ return {
   {
     'jinh0/eyeliner.nvim',
     opts = {
+
       highlight_on_key = false,
       -- dim all other characters if set to true (recommended!)
       dim = false,
