@@ -4,6 +4,18 @@
 
 vim.keymap.set({ 'n', 'v' }, ';', ':', { desc = 'Command', remap = false, silent = false })
 
+---@param offset number how many lines below the current one
+local function add_blank_line(offset)
+  return function()
+    local repeated = vim.fn["repeat"]({ "" }, vim.v.count1)
+    local line = vim.api.nvim_win_get_cursor(0)[1]
+    vim.api.nvim_buf_set_lines(0, line + offset, line + offset, true, repeated)
+  end
+end
+
+vim.keymap.set('n', '<leader>[', add_blank_line(-1), { desc = 'Add blank line above' })
+vim.keymap.set('n', '<leader>]', add_blank_line(0), { desc = 'Add blank line below' })
+
 local function get_prefix(s)
   local index = string.find(s, '.', 1, true)
   return index and string.sub(s, 1, index - 1) or ''

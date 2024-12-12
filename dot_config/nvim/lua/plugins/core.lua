@@ -31,6 +31,7 @@ return {
       local oil = require('oil')
 
       oil.setup({
+        default_file_explorer = true,
         keymaps = {
           ["<C-m>"] = "actions.preview",
         }
@@ -57,6 +58,7 @@ return {
     ---@type Flash.Config
     opts = {
       label = {
+        style = "eol",
         rainbow = { enabled = true }
       },
       treesitter = {
@@ -67,7 +69,7 @@ return {
           style = "inline", ---@type "eol" | "overlay" | "right_align" | "inline"
         },
         highlight = {
-          backdrop = true,
+          backdrop = false,
           matches = false,
         },
       }
