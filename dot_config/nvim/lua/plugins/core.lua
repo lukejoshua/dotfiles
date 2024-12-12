@@ -67,7 +67,7 @@ return {
           style = "eol", ---@type "eol" | "overlay" | "right_align" | "inline"
         },
         highlight = {
-          backdrop = false,
+          backdrop = true,
           matches = false,
         },
       }
