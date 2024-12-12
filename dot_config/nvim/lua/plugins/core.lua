@@ -57,7 +57,7 @@ return {
     ---@type Flash.Config
     opts = {
       label = {
-        rainbow = { enabled = true, shade = 1 }
+        rainbow = { enabled = true, shade = 9 }
       }
     }
   },
