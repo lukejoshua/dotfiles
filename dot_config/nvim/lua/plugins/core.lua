@@ -57,7 +57,19 @@ return {
     ---@type Flash.Config
     opts = {
       label = {
-        rainbow = { enabled = true, shade = 3 }
+        rainbow = { enabled = true }
+      },
+      treesitter = {
+        labels = "abcdefghijklmnopqrstuvwxyz",
+        jump = { pos = "range", autojump = true },
+        search = { incremental = false },
+        label = {
+          style = "eol", ---@type "eol" | "overlay" | "right_align" | "inline"
+        },
+        highlight = {
+          backdrop = false,
+          matches = false,
+        },
       }
     }
   },
