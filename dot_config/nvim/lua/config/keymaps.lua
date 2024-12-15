@@ -3,6 +3,14 @@
 -- Add any additional keymaps here
 
 vim.keymap.set({ 'n', 'v' }, ';', ':', { desc = 'Command', remap = false, silent = false })
+vim.keymap.set('n', '<leader>xd', function()
+  vim.diagnostic.open_float({
+    header = "Diagnostics",
+    border = 'double',
+  })
+end, {
+  desc = 'Display full diagnostic'
+})
 
 ---@param offset number how many lines below the current one
 local function add_blank_line(offset)
