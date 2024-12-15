@@ -16,102 +16,75 @@ end
 vim.keymap.set('n', '<leader>[', add_blank_line(-1), { desc = 'Add blank line above' })
 vim.keymap.set('n', '<leader>]', add_blank_line(0), { desc = 'Add blank line below' })
 
-local function get_prefix(s)
-  local index = string.find(s, '.', 1, true)
-  return index and string.sub(s, 1, index - 1) or ''
-end
-
-local function has_prefix(s, prefix)
-  return string.find(s, prefix .. '.', 1, true) == 1
-end
-
-
-local angular_defaults = {
-  "component.ts",
-  "component.html",
-  "analytics.ts",
-  "component.scss",
-}
-
-local svelte_defaults = {
-  "+page.svelte",
-  "+page.ts",
-  "+page.server.ts",
-  "+layout.svelte",
-  "+layout.ts",
-  "+layout.server.ts",
-  "+server.ts",
-  "+error.svelte",
-}
-
--- TODO: maybe this can be simplified so that prefixes aren't the focus
-vim.keymap.set('n', '<leader>cd', function()
+vim.keymap.set('n', '<leader>e', function()
   local current_file = vim.api.nvim_buf_get_name(0)
-  local basename = vim.fs.basename(current_file)
-  local defaults = basename:sub(1, 1) == '+' and svelte_defaults or angular_defaults
-
   local dir = vim.fs.dirname(current_file)
-  local prefix = get_prefix(basename)
+  local basename = vim.fs.basename(current_file)
 
+  -- Get all the files in the current directory, except the current file
   local items = {}
   for name, type in vim.fs.dir(dir) do
-    if has_prefix(name, prefix) and name ~= basename and type == 'file' then
+    if name ~= basename and type == 'file' then
       table.insert(items, name)
     end
   end
 
-  local function index(xs, x)
-    for idx, value in ipairs(xs) do
-      if value == x then return idx end
+  local special_filename_patterns = {
+    -- Angular
+    "component%.ts$",
+    "component%.html$",
+    "component%.scss$",
+
+    -- SvelteKit
+    "^%+page%.svelte$",
+    "^%+page%.ts$",
+    "^%+page%.server.ts$",
+    "^%+layout%.svelte$",
+    "^%+layout%.ts$",
+    "^%+layout%.server.ts$",
+    "^%+server%.ts$",
+    "^%+error%.svelte$",
+  }
+  --- Get the first special file substring that matches
+  --- @param name string
+  --- @return integer|nil The index of the matching special file
+  --- @return boolean If the filename is special
+  local function index(name)
+    for _, pattern in ipairs(special_filename_patterns) do
+      local special_file_index = name:find(pattern)
+      if special_file_index then
+        return special_file_index, true
+      end
     end
 
-    return nil
+    return nil, false
   end
 
   table.sort(items, function(a, b)
-    local aHasPrefix = has_prefix(a, prefix)
-    local bHasPrefix = has_prefix(b, prefix)
+    local indexA, aIsSpecial = index(a)
+    local indexB, bIsSpecial = index(b)
 
-    if aHasPrefix and bHasPrefix then
-      local indexA = index(defaults, string.sub(a, #prefix + 2))
-      local indexB = index(defaults, string.sub(b, #prefix + 2))
-
-      if indexA == nil and indexB == nil then
-        return a < b
-      end
-
-      if indexA ~= nil and indexB ~= nil then
+    -- Special files preceed non-special files
+    -- Sort two special files according to their order in `special_files`
+    -- non-special files use default ordering for strings
+    if aIsSpecial then
+      if bIsSpecial then
         return indexA < indexB
-      end
-
-      if indexA == nil then
-        return false
-      end
-
-      if indexB == nil then
+      else
         return true
       end
-
-      return a < b
-    elseif aHasPrefix then
-      return true
-    elseif bHasPrefix then
-      return false
     else
-      return a < b
+      if bIsSpecial then
+        return false
+      else
+        return a < b
+      end
     end
   end)
 
   return vim.ui.select(items, {
-    prompt = 'Select file: (' .. prefix .. ')',
-    format_item = function(item)
-      if not has_prefix(item, prefix) then
-        return item
-      end
-
-      return string.sub(item, #prefix + 2)
-    end,
-    kind = 'ngswitch',
+    prompt = 'Select file',
+    kind = 'sibling-file-switcher',
   }, function(item)
     if item == nil then
       return
@@ -120,5 +93,5 @@ vim.keymap.set('n', '<leader>cd', function()
     vim.cmd('e ' .. dir .. '/' .. item)
   end)
 end, {
-  desc = 'File Switcher',
+  desc = '[E]dit sibling',
 })
