@@ -6,5 +6,7 @@
 [credential "https://gist.github.com"]
 	helper = store
 	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential]
+  helper = store
 [pull]
 	rebase = false
