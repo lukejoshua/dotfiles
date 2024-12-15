@@ -1,3 +1,4 @@
+---@type LazySpec[]
 return {
   {
     "folke/tokyonight.nvim",
@@ -58,7 +59,7 @@ return {
     ---@type Flash.Config
     opts = {
       label = {
-        style = "eol",
+        style = "overlay",
         rainbow = { enabled = true }
       },
       treesitter = {
@@ -66,10 +67,12 @@ return {
         jump = { pos = "range", autojump = true },
         search = { incremental = false },
         label = {
-          style = "inline", ---@type "eol" | "overlay" | "right_align" | "inline"
+          before = true,
+          after = true,
+          style = "inline",
         },
         highlight = {
-          backdrop = false,
+          backdrop = true,
           matches = false,
         },
       }
@@ -141,19 +144,10 @@ return {
   -- TODO: display harpooned files first in the bufferline
   { import = "lazyvim.plugins.extras.editor.harpoon2" },
 
-  -- TODO: enable telescope extras, but read the docs first
-  -- TODO: make sure I'm using fzf native
-  -- TODO: frecency file search
-  -- { import = "lazyvim.plugins.extras.editor.telescope" },
-
-  -- TODO: consider blink if it's significantly better
-  -- { import = "lazyvim.plugins.extras.coding.blink" },
-
   -- TODO: consider edgy.nvim for creating layouts
   -- { import = "lazyvim.plugins.extras.ui.edgy" },
 
-  { import = "lazyvim.plugins.extras.formatting.prettier" },
-  { import = "lazyvim.plugins.extras.linting.eslint" },
+  { import = "lazyvim.plugins.extras.test.core" },
 
   -- Languages
   { import = "lazyvim.plugins.extras.lang.angular" },
@@ -164,6 +158,29 @@ return {
   { import = "lazyvim.plugins.extras.lang.vue" },
   { import = "lazyvim.plugins.extras.lang.yaml" },
   { import = "lazyvim.plugins.extras.lang.zig" },
+
+  -- Zig
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        zls = {
+          enable_build_on_save = true,
+          build_on_save_args = { "install", "-Dtarget=wasm32-wasi", "-fwasmtime" }
+        },
+      },
+    },
+  },
+
+  {
+    "lawrence-laz/neotest-zig",
+    -- supports zig 0.13
+    tag = "1.3.1"
+  },
+
+  -- JS
+  { import = "lazyvim.plugins.extras.formatting.prettier" },
+  { import = "lazyvim.plugins.extras.linting.eslint" },
 
   -- Dotfiles
   { import = "lazyvim.plugins.extras.util.chezmoi" },
