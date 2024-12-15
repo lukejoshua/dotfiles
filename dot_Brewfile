@@ -7,6 +7,7 @@ brew "chezmoi"
 brew "fish"
 brew "neovim"
 brew "lazygit"
+brew "tldr"
 brew "gh"
 
 brew "ripgrep"
