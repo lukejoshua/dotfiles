@@ -19,14 +19,6 @@ return {
     }
   },
   {
-    "nvim-telescope/telescope.nvim",
-    opts = {
-      pickers = {
-        find_files = { theme = "ivy" },
-      }
-    }
-  },
-  {
     'stevearc/oil.nvim',
     config = function()
       local oil = require('oil')
@@ -118,14 +110,21 @@ return {
     "echasnovski/mini.surround",
     opts = {
       mappings = {
-        add = 'ygs',            -- Add surrounding in Normal and Visual modes
-        delete = 'dgs',         -- Delete surrounding
-        replace = 'cgs',        -- Replace surrounding
-        find = 'gsf',           -- Find surrounding (to the right)
-        find_left = 'gsF',      -- Find surrounding (to the left)
-        highlight = 'gsh',      -- Highlight surrounding
-        update_n_lines = 'gsn', -- Update `n_lines`
-      }
+        add = 'msa',     -- Add surrounding in Normal and Visual modes
+        delete = 'msd',  -- Delete surrounding
+        replace = 'msc', -- Replace surrounding
+        -- find = 'gsf',           -- Find surrounding (to the right)
+        -- find_left = 'gsF',      -- Find surrounding (to the left)
+        -- highlight = 'gsh',      -- Highlight surrounding
+        -- update_n_lines = 'gsn', -- Update `n_lines`
+      },
+
+    },
+    mappings = {
+      { "ms",  group = "Mini-surround" },
+      { "msa", desc = "add surrounding" },
+      { "msd", desc = "delete surrounding" },
+      { "msc", desc = "change surrounding" },
     }
   },
   {
@@ -134,6 +133,28 @@ return {
   },
   { import = "lazyvim.plugins.extras.coding.yanky" },
   { import = "lazyvim.plugins.extras.editor.dial" },
+  {
+    "monaqa/dial.nvim",
+    opts = function(_, opts)
+      local augend = require('dial.augend')
+      opts.dials_by_ft.zig = 'zig'
+      opts.groups.zig = {
+        augend.constant.new({ elements = { "var", "const" } }),
+        augend.constant.new({ elements = { "and", "or" } }),
+        augend.constant.new({ elements = { "==", "!=" } })
+      }
+
+      vim.list_extend(opts.groups.default, {
+        augend.constant.new({ elements = { "break", "continue", "return" } }),
+        augend.constant.new({ elements = { "else", "else if" } }),
+      })
+
+      vim.list_extend(opts.groups.typescript, {
+        augend.constant.new({ elements = { "===", "!==" } })
+      })
+      return opts
+    end
+  },
 
   { import = "lazyvim.plugins.extras.dap.core" },
 
