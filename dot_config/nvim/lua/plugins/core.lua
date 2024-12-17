@@ -51,23 +51,23 @@ return {
     ---@type Flash.Config
     opts = {
       label = {
-        style = "overlay",
-        rainbow = { enabled = true }
+        -- style = "overlay",
+        rainbow = { enabled = true, shade = 1 }
       },
-      treesitter = {
-        labels = "abcdefghijklmnopqrstuvwxyz",
-        jump = { pos = "range", autojump = true },
-        search = { incremental = false },
-        label = {
-          before = true,
-          after = true,
-          style = "inline",
-        },
-        highlight = {
-          backdrop = true,
-          matches = false,
-        },
-      }
+      -- treesitter = {
+      --   labels = "abcdefghijklmnopqrstuvwxyz",
+      --   jump = { pos = "range", autojump = true },
+      --   search = { incremental = false },
+      -- label = {
+      -- before = true,
+      -- after = true,
+      -- style = "inline",
+      -- },
+      -- highlight = {
+      --   backdrop = true,
+      --   matches = false,
+      -- },
+      -- }
     }
   },
   {
@@ -209,5 +209,5 @@ return {
 
   -- Github integration
 
-  { import = "lazyvim.plugins.extras.util.octo" },
+  { import = "lazyvim.plugins.extras.util.octo" }
 }
