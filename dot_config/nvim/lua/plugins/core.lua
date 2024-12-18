@@ -25,9 +25,6 @@ return {
 
       oil.setup({
         default_file_explorer = true,
-        keymaps = {
-          ["<C-m>"] = "actions.preview",
-        }
       })
 
       -- https://github.com/stevearc/oil.nvim/issues/87#issuecomment-2179322405
