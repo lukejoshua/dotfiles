@@ -30,6 +30,7 @@ return {
 
       -- https://github.com/stevearc/oil.nvim/issues/87#issuecomment-2179322405
       vim.api.nvim_create_autocmd("User", {
+        lazy = false,
         pattern = "OilEnter",
         callback = vim.schedule_wrap(function(args)
           if vim.api.nvim_get_current_buf() == args.data.buf and oil.get_cursor_entry() then
