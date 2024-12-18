@@ -20,7 +20,6 @@ return {
   },
   {
     'stevearc/oil.nvim',
-    lazy = false,
     config = function()
       local oil = require('oil')
 
@@ -54,10 +53,7 @@ return {
       },
     }
   },
-  {
-    "chrisgrieser/nvim-spider",
-    lazy = true
-  },
+  { "chrisgrieser/nvim-spider" },
   {
     'jinh0/eyeliner.nvim',
     opts = {
