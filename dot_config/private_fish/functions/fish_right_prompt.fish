@@ -9,7 +9,7 @@ function fish_right_prompt
         end
     end
 
-    echo -n -s (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal
+    echo -n -s (set_color $color_cwd) (prompt_pwd) $normal
 
 
 end
