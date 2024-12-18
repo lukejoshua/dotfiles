@@ -1,4 +1,4 @@
-function fish_right_promt
+function fish_right_prompt
     set -l normal (set_color normal)
 
     # Color the prompt differently when we're root
