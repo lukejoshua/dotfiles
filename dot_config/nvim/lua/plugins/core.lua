@@ -52,22 +52,8 @@ return {
     opts = {
       label = {
         -- style = "overlay",
-        rainbow = { enabled = true, shade = 1 }
+        rainbow = { enabled = true, shade = 6 }
       },
-      -- treesitter = {
-      --   labels = "abcdefghijklmnopqrstuvwxyz",
-      --   jump = { pos = "range", autojump = true },
-      --   search = { incremental = false },
-      -- label = {
-      -- before = true,
-      -- after = true,
-      -- style = "inline",
-      -- },
-      -- highlight = {
-      --   backdrop = true,
-      --   matches = false,
-      -- },
-      -- }
     }
   },
   {
