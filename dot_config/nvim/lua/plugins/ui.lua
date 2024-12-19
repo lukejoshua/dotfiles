@@ -22,7 +22,106 @@ return {
         "nvim-neo-tree/neo-tree.nvim",
         enabled = false
     },
+    {
+        "nvim-lualine/lualine.nvim",
+        opts = function()
+            -- PERF: we don't need this lualine require madness 🤷
+            local lualine_require = require("lualine_require")
+            lualine_require.require = require
 
+            local icons = LazyVim.config.icons
+
+            vim.o.laststatus = vim.g.lualine_laststatus
+
+            return {
+                options = {
+                    theme = "auto",
+                    globalstatus = vim.o.laststatus == 3,
+                    disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
+                },
+                sections = {
+                    lualine_a = {
+                        {
+                            "mode",
+                            fmt = function(mode)
+                                if string.find(mode, '-', nil, true) then
+                                    return mode[1] .. mode[3]
+                                else
+                                    return mode[1] .. ' '
+                                end
+                            end
+                        }
+                    },
+                    lualine_b = {
+                        LazyVim.lualine.root_dir(),
+                    },
+                    lualine_c = {
+                        {
+                            "filetype",
+                            icon_only = true,
+                            separator = "",
+                            padding = { left = 1, right = 0 }
+                        },
+                        {
+                            "filename",
+                            -- Filename and parent dir, with tilder as the home directory
+                            path = 4,
+                            shorting_target = 40
+                        },
+                        {
+                            "diagnostics",
+                            symbols = {
+                                error = icons.diagnostics.Error,
+                                warn = icons.diagnostics.Warn,
+                                info = icons.diagnostics.Info,
+                                hint = icons.diagnostics.Hint,
+                            },
+                        },
+                    },
+                    lualine_x = {
+                        Snacks.profiler.status(),
+                        -- stylua: ignore
+                        {
+                            function() return "  " .. require("dap").status() end,
+                            cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
+                            color = function() return { fg = Snacks.util.color("Debug") } end,
+                        },
+                        -- stylua: ignore
+                        {
+                            require("lazy.status").updates,
+                            cond = require("lazy.status").has_updates,
+                            color = function() return { fg = Snacks.util.color("Special") } end,
+                        },
+                    },
+                    lualine_y = {
+                        {
+                            "diff",
+                            symbols = {
+                                added = icons.git.added,
+                                modified = icons.git.modified,
+                                removed = icons.git.removed,
+                            },
+                            source = function()
+                                local gitsigns = vim.b.gitsigns_status_dict
+                                if gitsigns then
+                                    return {
+                                        added = gitsigns.added,
+                                        modified = gitsigns.changed,
+                                        removed = gitsigns.removed,
+                                    }
+                                end
+                            end,
+                        },
+                        "branch"
+                    },
+                    lualine_z = {
+                        { "location", padding = { left = 0, right = 1 } },
+                    },
+                },
+                extensions = { "neo-tree", "lazy" },
+            }
+        end,
+    }
 
     -- TODO: consider edgy.nvim for creating layouts
     -- { import = "lazyvim.plugins.extras.ui.edgy" },
