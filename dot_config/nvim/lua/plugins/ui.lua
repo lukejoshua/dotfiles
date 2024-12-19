@@ -1,3 +1,4 @@
+---@type LazySpec[]
 return {
     { import = "lazyvim.plugins.extras.editor.aerial" },
 
@@ -25,6 +26,10 @@ return {
 
     -- TODO: consider edgy.nvim for creating layouts
     -- { import = "lazyvim.plugins.extras.ui.edgy" },
+
+    -------------------------------
+    --    Non-Lazy UI Plugins    --
+    -------------------------------
 
     {
         'stevearc/oil.nvim',

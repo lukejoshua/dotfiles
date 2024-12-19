@@ -1,3 +1,4 @@
+---@type LazySpec[]
 return {
     { import = "lazyvim.plugins.extras.lang.angular" },
     { import = "lazyvim.plugins.extras.lang.java" },
