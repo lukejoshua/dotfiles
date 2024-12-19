@@ -84,9 +84,9 @@ return {
                     {
                         "diff",
                         symbols = {
-                            added = icons.git.added,
-                            modified = icons.git.modified,
-                            removed = icons.git.removed,
+                            added = LazyVim.config.icons.git.added,
+                            modified = LazyVim.config.icons.git.modified,
+                            removed = LazyVim.config.icons.git.removed,
                         },
                         source = function()
                             local gitsigns = vim.b.gitsigns_status_dict
