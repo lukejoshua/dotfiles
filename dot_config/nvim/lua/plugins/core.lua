@@ -30,4 +30,8 @@ return {
             signature = { enabled = true },
         }
     },
+    {
+        "ibhagwan/fzf-lua",
+        event = "VeryLazy"
+    }
 }
