@@ -6,8 +6,6 @@ return {
     -- Override LazyVim Defaults --
     -------------------------------
 
-    -- TODO: clean up status line
-
     {
         "folke/tokyonight.nvim",
         opts = {
@@ -24,17 +22,17 @@ return {
     },
     {
         "nvim-lualine/lualine.nvim",
-        opts =
-        {
-            sections = {
+        opts = function(_, opts)
+            opts.sections = {
                 lualine_a = {
                     {
                         "mode",
+                        ---@param mode string
                         fmt = function(mode)
                             if string.find(mode, '-', nil, true) then
-                                return mode[1] .. mode[3]
+                                return mode:sub(1, 1) .. mode:sub(3, 3)
                             else
-                                return mode[1] .. ' '
+                                return mode:sub(1, 1)
                             end
                         end
                     }
@@ -43,12 +41,6 @@ return {
                     LazyVim.lualine.root_dir(),
                 },
                 lualine_c = {
-                    {
-                        "filetype",
-                        icon_only = true,
-                        separator = "",
-                        padding = { left = 1, right = 0 }
-                    },
                     {
                         "filename",
                         -- Filename and parent dir, with tilder as the home directory
@@ -67,13 +59,16 @@ return {
                 },
                 lualine_x = {
                     Snacks.profiler.status(),
-                    -- stylua: ignore
+                    {
+                        function() return require("noice").api.status.mode.get() end,
+                        cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+                        color = function() return { fg = Snacks.util.color("Constant") } end,
+                    },
                     {
                         function() return "  " .. require("dap").status() end,
                         cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
                         color = function() return { fg = Snacks.util.color("Debug") } end,
                     },
-                    -- stylua: ignore
                     {
                         require("lazy.status").updates,
                         cond = require("lazy.status").has_updates,
@@ -99,14 +94,20 @@ return {
                             end
                         end,
                     },
-                    "branch"
+                    { "branch" }
                 },
                 lualine_z = {
-                    { "location", padding = { left = 0, right = 1 } },
+                    {
+                        'location',
+                        fmt = function(str)
+                            return 'Column ' .. string.gsub(str, '^.+%:', '')
+                        end,
+                    },
                 },
-            },
-            extensions = { "lazy" },
-        }
+            }
+            opts.extensions = { "lazy" }
+            return opts
+        end
     },
 
     -- TODO: consider edgy.nvim for creating layouts
