@@ -1,5 +1,10 @@
 [git]
     autoCommit = true
+    commitMessageTemplate = {{ "\"{{ promptString \\\"Commit message\\\" }}\"" }}
+    autoAdd = true
     # autoPush = true
 [edit]
     command="nvim"
+[merge]
+    command = "nvim"
+    args = ["-d", {{ "\"{{ .Destination }}\"" }}, {{ "\"{{ .Source }}\"" }}, {{ "\"{{ .Target }}\"" }}]
