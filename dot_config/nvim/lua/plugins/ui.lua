@@ -29,15 +29,7 @@ return {
                 max_name_length = 30,
                 numbers = "ordinal",
                 show_close_icon = false,
-                separator_style = "slope",
                 style_preset = require('bufferline').style_preset.minimal
-            }
-            opts.highlights = {
-                separator = {
-                    fg = 'Normal',
-                    bg = 'Normal'
-                }
-
             }
             return opts
         end
