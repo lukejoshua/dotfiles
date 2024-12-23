@@ -68,6 +68,10 @@ return {
 
     {
         "chrisgrieser/nvim-spider",
+
+        opts = {
+            skipInsignificantPunctuation = false
+        },
         keys = vim.tbl_map(function(character)
             return {
                 character,
