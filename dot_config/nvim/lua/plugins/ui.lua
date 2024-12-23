@@ -21,6 +21,19 @@ return {
         enabled = false
     },
     {
+        "akinsho/bufferline.nvim",
+        ---@type bufferline.UserConfig
+        opts = {
+            options = {
+                max_name_length = 30,
+                numbers = "ordinal",
+                show_close_icon = false,
+                separator_style = "slope"
+
+            }
+        }
+    },
+    {
         "nvim-lualine/lualine.nvim",
         opts = function(_, opts)
             opts.sections = {
