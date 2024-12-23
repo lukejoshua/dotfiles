@@ -22,16 +22,25 @@ return {
     },
     {
         "akinsho/bufferline.nvim",
-        ---@type bufferline.UserConfig
-        opts = {
-            options = {
+        ---@param opts bufferline.UserConfig
+        ---@return bufferline.UserConfig
+        opts = function(_, opts)
+            opts.options = {
                 max_name_length = 30,
                 numbers = "ordinal",
                 show_close_icon = false,
-                separator_style = "slope"
+                separator_style = "slope",
+                style_preset = require('bufferline').style_preset.minimal
+            }
+            opts.highlights = {
+                separator = {
+                    fg = 'Normal',
+                    bg = 'Normal'
+                }
 
             }
-        }
+            return opts
+        end
     },
     {
         "nvim-lualine/lualine.nvim",
