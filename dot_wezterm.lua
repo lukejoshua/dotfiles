@@ -56,8 +56,8 @@ tabline.setup({
 	},
 	sections = {
 		tabline_a = { "mode" },
-		tabline_b = { "workspace" },
-		tabline_c = { " " },
+		tabline_b = {},
+		tabline_c = {},
 		tab_active = {
 			"index",
 			-- { "parent", padding = 0 },
@@ -70,7 +70,7 @@ tabline.setup({
 		tab_inactive = { "index", { "process", padding = { left = 0, right = 1 } } },
 		tabline_x = { " " },
 		tabline_y = { "window" },
-		tabline_z = { "domain" },
+		tabline_z = { "workspace" },
 	},
 })
 
