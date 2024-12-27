@@ -9,3 +9,4 @@ vim.g.loaded_netrwPlugin = 1
 vim.o.scrolloff = 999
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
+vim.o.wrap = true

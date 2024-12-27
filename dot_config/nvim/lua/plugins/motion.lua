@@ -62,13 +62,42 @@ return {
         end
     },
 
+    -- {
+    --     "folke/ts-comments.nvim",
+    --     keys = {
+    --
+    --         {
+    --             '<leader>Ct',
+    --             'OTODO:<Esc>gccA',
+    --             mode = 'n',
+    --             desc = "Add TODO comment above current line"
+    --         }
+    --     {}
+    --
+    -- vim.keymap.set('n', '<leader>Ct', function()
+    --     vim.bo.
+    -- end, {
+    --     desc = "Add TODO comment above current line"
+    -- })
+    --
+    -- vim.keymap.set('n', '<leader>Cn', 'ONOTE:<Esc>gccA', {
+    --     desc = "Add NOTE comment above current line"
+    -- })
+    --
+    -- vim.keymap.set('n', '<leader>Cf', 'OFIX:<Esc>gccA', {
+    --     desc = "Add FIX comment above current line"
+    -- })
+    --     }
+    -- },
+
+
     -------------------------------
     --  Non-Lazy Motion Plugins  --
     -------------------------------
 
     {
         "chrisgrieser/nvim-spider",
-
+        event = "VeryLazy",
         opts = {
             skipInsignificantPunctuation = false
         },
@@ -83,6 +112,7 @@ return {
     },
     {
         'jinh0/eyeliner.nvim',
+        event = "VeryLazy",
         opts = {
             highlight_on_key = false,
             disabled_filetypes = { "help" },

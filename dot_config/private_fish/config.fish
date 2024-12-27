@@ -16,9 +16,6 @@ abbr -a n nvim
 
 # chezmoi
 abbr -a cz chezmoi
-abbr -a czcd chezmoi cd
-abbr -a czed chezmoi edit
-abbr -a czgt chezmoi git
 
 # homebrew
 abbr -a bb brew bundle --global
@@ -29,6 +26,7 @@ abbr -a z zellij -l welcome
 
 zoxide init --cmd c fish | source
 fzf --fish | source # fzf keybindings
+batman --export-env | source
 
 
 source /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.fish
