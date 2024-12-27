@@ -1,15 +1,8 @@
 local wezterm = require("wezterm")
-
 local config = wezterm.config_builder()
 
---------------
--- WSL ONLY --
---------------
+-- WSL ONLY
 config.default_domain = "WSL:Ubuntu-22.04"
--- config.wsl_domains = wezterm.default_wsl_domains()
----------------
--- /WSL ONLY --
----------------
 
 -- config.default_prog = { "fish" }
 
@@ -27,43 +20,7 @@ config.window_background_gradient = {
 		"#16161e",
 		"#1a1b26",
 	},
-	--
-	-- colors = {
-	-- 	"#0C0E14",
-	-- 	"#16161e",
-	-- 	"#1a1b26",
-	-- 	"#1E2030",
-	--
-	-- 	"#222436",
-	--
-	-- 	"#1E2030",
-	-- 	"#1a1b26",
-	-- 	"#16161e",
-	-- 	"#0C0E14",
-	-- },
 }
-
--- config.background = {
--- 	{
--- 		source = {
--- 			File = "/Users/luke.joshua/Downloads/abstract-gradient-swirl.jpg",
--- 		},
--- 		attachment = {
--- 			Parallax = 0.01,
--- 		},
--- 		vertical_align = "Middle",
--- 		horizontal_align = "Center",
--- 		repeat_x = "Mirror",
--- 		repeat_y = "Mirror",
--- 		hsb = {
--- 			-- saturation = 0.5,
--- 		},
--- 		opacity = 0.05,
--- 	},
--- }
---
--- config.window_background_opacity = 1
--- config.macos_window_background_blur = 20
 
 config.tab_bar_at_bottom = true
 
@@ -103,14 +60,16 @@ tabline.setup({
 		tabline_c = { " " },
 		tab_active = {
 			"index",
-			{ "parent", padding = 0 },
-			"/",
-			{ "cwd", padding = { left = 0, right = 1 } },
+			-- { "parent", padding = 0 },
+			-- "/",
+			-- { "cwd", padding = { left = 0, right = 1 } },
+			"tab",
 			{ "zoomed", padding = 0 },
+			"output",
 		},
 		tab_inactive = { "index", { "process", padding = { left = 0, right = 1 } } },
-		tabline_x = { "ram", "cpu" },
-		tabline_y = { "datetime", "battery" },
+		tabline_x = { " " },
+		tabline_y = { "window" },
 		tabline_z = { "domain" },
 	},
 })
