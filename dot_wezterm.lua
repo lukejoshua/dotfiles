@@ -19,7 +19,6 @@ config.color_scheme = "Tokyo Night"
 config.window_background_gradient = {
 	orientation = "Vertical",
 	colors = {
-		"#222436",
 		"#1E2030",
 		"#1a1b26",
 		"#16161e",
@@ -29,7 +28,6 @@ config.window_background_gradient = {
 		"#16161e",
 		"#1a1b26",
 		"#1E2030",
-		"#222436",
 	},
 	--
 	-- colors = {
