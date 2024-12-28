@@ -1,0 +1,5 @@
+#!/usr/bin/env fish
+
+# .wezterm.lua hash to create a dependency: {{ include "dot_wezterm.lua" | sha256sum }}
+
+string replace --regex '^-- config.default_domain' 'config.default_domain' <~/.wezterm.lua >/mnt/c/Users/luke.joshua/.wezterm.lua
