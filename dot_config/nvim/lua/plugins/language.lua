@@ -15,6 +15,8 @@ return {
     { import = "lazyvim.plugins.extras.util.chezmoi" },
     { import = "lazyvim.plugins.extras.util.dot" },
 
+    { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+
     -------------------------------
     -- Override LazyVim Defaults --
     -------------------------------
@@ -25,7 +27,11 @@ return {
             servers = {
                 zls = {
                     enable_build_on_save = true,
-                    build_on_save_args = { "install", "-Dtarget=wasm32-wasi", "-fwasmtime" }
+                    build_on_save_args = {
+                        "install",
+                        "-Dtarget=wasm32-wasi",
+                        "-fwasmtime",
+                    },
                 },
             },
         },
@@ -34,7 +40,6 @@ return {
         "lawrence-laz/neotest-zig",
         -- supports zig 0.13
         tag = "1.3.1",
-        event = "VeryLazy"
+        event = "VeryLazy",
     },
-
 }

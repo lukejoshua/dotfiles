@@ -1,0 +1,66 @@
+tap "homebrew/bundle"
+
+formulae =  [
+    "chezmoi",
+    "fish",
+    "neovim",
+
+    "gh",
+    "lazygit",
+
+    "fzf",
+    "zoxide",
+    "ripgrep",
+    "fd",
+    "eza",
+    "bat",
+    "bat-extras",
+    "tldr",
+    "jq",
+
+    # asdf dependencies:
+    "coreutils",
+    "curl",
+    "git",
+
+    # asdf nodejs dependencies:
+    "gawk",
+    "gpg",
+
+    "gcc",
+    "zig"
+]
+
+casks = [
+    "font-jetbrains-mono-nerd-font",
+
+    "wezterm",
+    "obsidian",
+    "mockoon",
+    "spotify",
+
+    "raycast",
+    "homerow",
+
+    "arc",
+    "firefox",
+    "google-chrome"
+]
+
+formulae.each do |formula|
+    brew formula
+end
+
+casks.each do |c|
+    cask c
+end
+
+if OS.linux?
+    {{ if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+        # wezterm doesn't work from within WSL
+    {{else}}
+        tap "wez/wezterm-linuxbrew"
+        brew "wezterm"
+    {{end}}
+end
+

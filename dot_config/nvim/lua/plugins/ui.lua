@@ -8,6 +8,7 @@ return {
 
     {
         "folke/tokyonight.nvim",
+        lazy = false,
         opts = {
             transparent = true,
             styles = {
@@ -21,19 +22,73 @@ return {
         enabled = false,
     },
     {
+        "folke/noice.nvim",
+        opts = {
+            presets = {
+                lsp_doc_border = true,
+            },
+        },
+    },
+    {
         "akinsho/bufferline.nvim",
         ---@param opts bufferline.UserConfig
         ---@return bufferline.UserConfig
         opts = function(_, opts)
             opts.options = {
                 max_name_length = 30,
-                numbers = "ordinal",
                 show_close_icon = false,
                 show_buffer_close_icons = false,
                 style_preset = require("bufferline").style_preset.minimal,
+                sort_by = function(buffer_a, buffer_b)
+                    -- add custom logic
+                    local modified_a = vim.fn.getftime(buffer_a.path)
+                    local modified_b = vim.fn.getftime(buffer_b.path)
+                    return modified_a > modified_b
+                end,
             }
+
             return opts
         end,
+        keys = (function()
+            local mappings = {
+
+                {
+                    "<leader>$",
+                    function()
+                        require("bufferline").go_to(-1, true)
+                    end,
+                    desc = "Switch to last buffer ",
+                },
+                {
+                    "<leader>0",
+                    function()
+                        require("bufferline").move_to(1)
+                    end,
+                    desc = "Move buffer to start",
+                },
+            }
+            for i = 1, 9 do
+                local ordinal = i .. "th"
+
+                if i == 1 then
+                    ordinal = "1st"
+                elseif i == 2 then
+                    ordinal = "2nd"
+                elseif i == 3 then
+                    ordinal = "3rd"
+                end
+
+                table.insert(mappings, {
+                    "<leader>" .. i,
+                    function()
+                        require("bufferline").go_to(i)
+                    end,
+                    desc = "Switch to " .. ordinal .. " visible buffer ",
+                })
+            end
+
+            return mappings
+        end)(),
     },
     {
         "nvim-lualine/lualine.nvim",

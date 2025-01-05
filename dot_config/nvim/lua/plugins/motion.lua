@@ -1,6 +1,5 @@
 ---@type LazySpec[]
 return {
-    { import = "lazyvim.plugins.extras.coding.mini-surround" },
     { import = "lazyvim.plugins.extras.coding.yanky" },
     { import = "lazyvim.plugins.extras.editor.dial" },
 
@@ -13,40 +12,21 @@ return {
         ---@type Flash.Config
         opts = {
             label = {
-                rainbow = { enabled = true, shade = 6 }
-            },
-        }
-    },
-    {
-        "echasnovski/mini.surround",
-        opts = {
-            -- 'ms' for 'mini.surround'
-            mappings = {
-                add = 'msa',     -- Add surrounding
-                delete = 'msd',  -- Delete surrounding
-                replace = 'msc', -- Replace surrounding
-                -- Disable unused mappings
-                find = "",
-                find_left = "",
-                highlight = "",
-                update_n_lines = ""
+                rainbow = { enabled = true, shade = 6 },
             },
         },
-        mappings = {
-            { "ms", group = "Mini-surround" },
-        }
     },
     {
         "monaqa/dial.nvim",
         opts = function(_, opts)
-            local augend = require('dial.augend')
+            local augend = require("dial.augend")
             local constant = augend.constant.new
 
-            opts.dials_by_ft.zig = 'zig'
+            opts.dials_by_ft.zig = "zig"
             opts.groups.zig = {
                 constant({ elements = { "var", "const" } }),
                 constant({ elements = { "and", "or" } }),
-                constant({ elements = { "==", "!=" } })
+                constant({ elements = { "==", "!=" } }),
             }
 
             vim.list_extend(opts.groups.default, {
@@ -55,11 +35,11 @@ return {
             })
 
             vim.list_extend(opts.groups.typescript, {
-                constant({ elements = { "===", "!==" } })
+                constant({ elements = { "===", "!==" } }),
             })
 
             return opts
-        end
+        end,
     },
 
     -- {
@@ -90,7 +70,6 @@ return {
     --     }
     -- },
 
-
     -------------------------------
     --  Non-Lazy Motion Plugins  --
     -------------------------------
@@ -99,23 +78,57 @@ return {
         "chrisgrieser/nvim-spider",
         event = "VeryLazy",
         opts = {
-            skipInsignificantPunctuation = false
+            skipInsignificantPunctuation = false,
         },
         keys = vim.tbl_map(function(character)
             return {
                 character,
                 -- Has to be an Ex-command for dot-repeat to work
-                "<cmd>lua require('spider').motion('" .. character .. "')<CR>",
+                "<cmd>lua require('spider').motion('"
+                    .. character
+                    .. "')<CR>",
                 mode = { "n", "o", "x" },
             }
-        end, { 'w', 'e', 'b' })
+        end, { "w", "e", "b" }),
     },
     {
-        'jinh0/eyeliner.nvim',
+        "jinh0/eyeliner.nvim",
         event = "VeryLazy",
         opts = {
             highlight_on_key = false,
             disabled_filetypes = { "help" },
-        }
+        },
+    },
+    {
+        "aaronik/treewalker.nvim",
+        -- TODO: keybindings for swapping nodes
+        keys = vim.tbl_map(function(direction)
+            return {
+                "<S-" .. direction .. ">",
+                "<cmd>Treewalker " .. direction .. "<cr>",
+                mode = { "n", "v" },
+                desc = "Treewalker " .. direction,
+            }
+        end, { "Up", "Down", "Left", "Right" }),
+    },
+    {
+        "kylechui/nvim-surround",
+        version = "*",
+        event = "VeryLazy",
+        opts = {
+            keymaps = {
+                insert = "<C-g>x",
+                insert_line = "<C-g>X",
+                normal = "yx",
+                normal_cur = "yxx",
+                normal_line = "yX",
+                normal_cur_line = "yXX",
+                visual = "X",
+                visual_line = "gX",
+                delete = "dx",
+                change = "cx",
+                change_line = "cX",
+            },
+        },
     },
 }

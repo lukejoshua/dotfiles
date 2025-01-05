@@ -3,6 +3,7 @@ local act = wezterm.action
 local config = wezterm.config_builder()
 
 local workspace_switcher = wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
+local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
 
 {{ if eq .chezmoi.os "linux" }}
 {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
@@ -19,8 +20,8 @@ config.color_scheme = "Tokyo Night"
 config.window_background_gradient = {
 	orientation = "Vertical",
 	colors = {
-		"#1a1b26",
-		"#16161e",
+		"#0C0E14",
+		"#0C0E14",
 		"#0C0E14",
 		"#0C0E14",
 		"#0C0E14",
@@ -108,6 +109,58 @@ config.keys = {
 			end),
 		}),
 	},
+{
+    key = "b",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action_callback(function(win, pane)
+      resurrect.fuzzy_load(win, pane, function(id, label)
+            win:toast_notification("Wezterm - find", msg, nil, 4000)
+            local workspace_state = resurrect.workspace_state
+
+            workspace_state.restore_workspace(resurrect.load_state(label, "workspace"), {
+                window = window,
+                relative = true,
+                restore_text = true,
+                on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+            })
+        end,
+        {
+          title = "FUZZY REZ",
+          description = "Select State to Delete and press Enter = accept, Esc = cancel, / = filter",
+          fuzzy_description = "Search State to Delete: ",
+          is_fuzzy = true,
+        })
+    end),
+  }
 }
+
+resurrect.periodic_save({
+        interval_seconds = 10 * 60,
+        save_workspaces = true,
+        save_windows = true,
+        save_tabs = true,
+})
+
+-- loads the state whenever I create a new workspace
+wezterm.on("smart_workspace_switcher.workspace_switcher.created", function(window, path, label)
+  local workspace_state = resurrect.workspace_state
+  
+  workspace_state.restore_workspace(resurrect.load_state(label, "workspace"), {
+    window = window,
+    relative = true,
+    restore_text = true,
+    on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+  })
+end)
+
+-- Saves the state whenever I select a workspace
+wezterm.on("smart_workspace_switcher.workspace_switcher.selected", function(window, path, label)
+  local workspace_state = resurrect.workspace_state
+  resurrect.save_state(workspace_state.get_workspace_state())
+end)
+
+wezterm.on("resurrect.periodic_save", function()
+    wezterm.gui.gui_windows()[1]:toast_notification("Wezterm - resurrect", msg, nil, 4000)
+end)
 
 return config

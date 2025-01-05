@@ -8,10 +8,6 @@ return {
     -- Github integration
     { import = "lazyvim.plugins.extras.util.octo" },
 
-    -- TODO: pinned tabs instead of arrow/harpoon? Including <leader>1, <leader2>, <leader>h
-    -- TODO: display harpooned files first in the bufferline
-    { import = "lazyvim.plugins.extras.editor.harpoon2" },
-
     -------------------------------
     -- Override LazyVim Defaults --
     -------------------------------
@@ -20,18 +16,18 @@ return {
         "nvim-treesitter/nvim-treesitter",
         opts = {
             ensure_installed = {
-                "kdl"
-            }
-        }
+                "kdl",
+            },
+        },
     },
     {
         "saghen/blink.cmp",
         opts = {
             signature = { enabled = true },
-        }
+        },
     },
     {
         "ibhagwan/fzf-lua",
-        event = "VeryLazy"
-    }
+        event = "VeryLazy",
+    },
 }

@@ -7,6 +7,13 @@ end
 set -x EDITOR nvim
 set -x SHELL fish
 
+# eza
+set -x EZA_CONFIG_DIR ~/.config/eza
+# set -x EZA_MIN_LUMINANCE 60
+abbr -a l eza
+abbr -a la eza --long --header --color-scale --all --time-style relative --no-permissions --no-user --git --git-repos
+abbr -a lt eza --tree --level=3 --long --header --color-scale --all --time-style relative --no-permissions --no-user --git --git-repos
+
 # git
 abbr -a gst git status
 abbr -a lg lazygit
@@ -28,5 +35,4 @@ zoxide init --cmd c fish | source
 fzf --fish | source # fzf keybindings
 batman --export-env | source
 
-
-source /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.fish
+source ~/.asdf/asdf.fish
