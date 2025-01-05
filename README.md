@@ -2,8 +2,7 @@
 
 ## Quickstart
 
-Run the following command to download this repo and symlink it appropriately
-with [Chezmoi](https://www.chezmoi.io/).
+Run the following command to download and initialise this repo on a new machine:
 
 ```sh
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply lukejoshua
@@ -12,18 +11,17 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply lukejoshua
 ### Checks
 
 - Run `nvim` and run a health check with `:LazyHealth`
-- Check that `asdf`-managed tools have all been installed (e.g. `node`, `bun`, `java`)
+- Check that `asdf`-managed tools have all been installed (e.g. `node`, `bun`)
 
 ## Overview
 
-### Chezmoi
-
-- installation process, removal of bin, scripts
-- usage
+### [Chezmoi](https://chezmoi.io)
 
 #### TODO
 
 - automate editing/applying/pushing without breaking anything
+- document installation process, removal of bin, scripts
+- document workflow, gotchas
 
 ### Homebrew
 
@@ -38,7 +36,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply lukejoshua
   - chezmoi-aware `brew install`
   - interactive installation (e.g. search)
 
-### Wezterm
+### [Wezterm](https://wezfurlong.org/wezterm)
 
 #### TODO
 
@@ -46,13 +44,13 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply lukejoshua
 - better session management
 - more interesting background
 
-### Fish
+### [`fish`](https://fishshell.com)
 
 - config
 - prompt
 - util functions
 
-### Neovim
+### [Neovim](https://neovim.io)
 
 - lazyvim
 - plugins, overrides
@@ -63,7 +61,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply lukejoshua
 - get rid of unused plugins, if any
 - better snippets
 
-### `asdf`
+### [`asdf`](https://asdf-vm.com)
 
 - installation method
 - usage
@@ -72,32 +70,61 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply lukejoshua
 
 - pin to a specific branch
 
-### Obsidian
+### [Obsidian](https://obsidian.md)
 
-### MacOS-specific
+#### TODO
 
-- Homerow 
-- Raycast
+- Sync
+- Webclipper
+
+### [Raycast](https://raycast.com)
+
+Still learning how to use this, but these seem useful:
+
+- [Browser Extension](https://www.raycast.com/browser-extension)
+
+#### Extensions
+
+- Spotify Player
+- Arc
+- Brew
+- Slack
+- Obsidian
+- Github
+- Pomodoro
+- Google Search
+- Emoji Search
+- Coffee
+- ChatGPT (?)
+
+
+#### TODO
+
+- Find out if this can be configured programatically
+
+### Arc
+
+#### TODO
+
+- extensions (raycast, adblock, sponsorblock?)
+- import spaces or sync?
 
 ### Utils
 
 - `fzf`: fuzzy finder used in Neovim and scripts
+- `jq`: `json` querying tool
+- `tldr`: like `man`, but 1000x less text
 - `eza`: better `ls`
+- `ripgrep`: better `grep`
 - `bat`: better `cat`
 - `batman`: better `man`
-
-### Browsers
-
-- Arc
-    - extensions (raycast, adblock, sponsorblock?)
-    - import spaces or sync?
-
-### Misc
-
-- Mockoon
+- `fd`: better `find`
+- `lazygit`: awesome Git interface
+- `gh`: GitHub CLI
 
 ## TODO
 
+- Find alternatives to [Homerow](homerow.app)
 - Complete this README
 - better documenation in scripts, config files
 - automated healthchecks and cleanup tasks (on shell login?)
