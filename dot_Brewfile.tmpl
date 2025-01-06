@@ -57,12 +57,3 @@ casks.each do |c|
     cask c
 end
 
-if OS.linux?
-    {{ if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-        # wezterm doesn't work from within WSL
-    {{else}}
-        tap "wez/wezterm-linuxbrew"
-        brew "wezterm"
-    {{end}}
-end
-
