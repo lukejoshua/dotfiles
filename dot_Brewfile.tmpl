@@ -1,9 +1,15 @@
 tap "homebrew/bundle"
+tap "FelixKratz/formulae"
 
 formulae =  [
     "chezmoi",
     "fish",
     "neovim",
+
+    "tmux",
+    "zellij",
+    "sketchybar",
+    "svim",
 
     "gh",
     "lazygit",
@@ -17,6 +23,10 @@ formulae =  [
     "bat-extras",
     "tldr",
     "jq",
+    "slides",
+    "chafa",
+
+    "asdf",
 
     # asdf dependencies:
     "coreutils",
@@ -26,27 +36,38 @@ formulae =  [
     # asdf nodejs dependencies:
     "gawk",
     "gpg",
-
+    "bash",
     "gcc",
     "zig"
 ]
 
 casks = [
     "font-jetbrains-mono-nerd-font",
+    "font-monaspace-nerd-font",
+    "font-noto-sans-symbols-2",
+    "font-hack-nerd-font",
 
     "wezterm",
+    "ghostty",
     "obsidian",
     "spotify",
 
     "raycast",
+    "nikitabobko/tap/aerospace",
 
     "rancher",
     "mockoon",
     "slack",
+    "miro",
+    "chatgpt",
+    "ollama",
+    "zed",
 
     "arc",
     "firefox",
-    "google-chrome"
+    "google-chrome",
+
+    "dotnet-sdk"
 ]
 
 formulae.each do |formula|

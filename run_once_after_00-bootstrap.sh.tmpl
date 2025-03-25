@@ -7,3 +7,14 @@ echo "Installing homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew bundle install --global
 echo "✅ Installed homebrew"
+
+# TODO: translate to bash
+# echo "Starting and registering sketchybar"
+# brew services start sketchybar
+#
+# if test $status -eq 0
+#     echo "✅ Sketchybar registered"
+# else
+#     echo "❌ Sketchybar could not be started or registered on startup"
+#     exit $status
+# end

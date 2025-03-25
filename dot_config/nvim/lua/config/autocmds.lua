@@ -11,6 +11,14 @@ local help_split_group = vim.api.nvim_create_augroup("HelpSplit", {
     clear = true,
 })
 
+-- Hack to remove duplicate status bar
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = vim.api.nvim_create_augroup("LastStatusOnBufEnter", { clear = true }),
+    callback = function()
+        vim.o.laststatus = 0
+    end,
+})
+
 vim.api.nvim_create_autocmd("Filetype", {
     pattern = { "help", "man" },
     desc = [[ Open new help splits to the right. ]],
@@ -18,67 +26,39 @@ vim.api.nvim_create_autocmd("Filetype", {
     group = help_split_group,
 })
 
---- Log all keypresses to a file for later processing
---- Just logs to a file for now, but doesn't do much more
---- Ideally I'd be able to check which mappings are activated
+-- inspired by rushjs1/nuxt-goto.nvim
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+    pattern = { "*.vue" },
+    desc = [[ Set up Nuxt goto-definition ]],
+    group = vim.api.nvim_create_augroup("NuxtGotoDefinition", {
+        clear = false,
+    }),
+    -- TODO: make this actually work with goto definition
+    once = true,
+    callback = function()
+        if vim.fn.finddir(".nuxt") ~= ".nuxt" then
+            return
+        end
+        local original_definition = vim.lsp.buf.definition
 
-local logger_active = false
-if logger_active then
-    local keylogger_group = vim.api.nvim_create_augroup("KeyLogger", {
-        clear = true,
-    })
+        -- TODO: needs to integrate with fzf lsp implementation :/
+        vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+            pattern = { "*.d.ts" },
+            callback = function()
+                -- vim.lsp.buf.definition = function()
+                -- 	original_definition()
 
-    -- use a different once-off event plez
-    vim.api.nvim_create_autocmd("BufEnter", {
-        once = true,
-        desc = "Log keypresses to a file for later processing",
-        group = keylogger_group,
-        callback = function()
-            -- File created manually for now
-            -- NOTE: tilde doesn't work in here lol
-            local log_file = "/home/luke/vim.log"
-            local file = io.open(log_file, "r+")
+                vim.defer_fn(function()
+                    local line = vim.fn.getline(".")
+                    local path = string.match(line, '".-/(.-)"')
+                    local file = vim.fn.expand("%")
 
-            vim.api.nvim_create_autocmd("VimLeave", {
-                callback = function()
-                    if file then
-                        file:close()
+                    if string.find(file, "components.d.ts") then
+                        vim.cmd("edit " .. path)
                     end
-                end,
-            })
-
-            vim.notify("Starting Logger", vim.log.levels.INFO, {})
-
-            local buffer = {}
-            local namespace_id
-            namespace_id = vim.on_key(function(k, t)
-                if #t == 0 then
-                    return
-                end
-
-                if file == nil then
-                    vim.notify("Stopping Logger", vim.log.levels.ERROR)
-                    vim.on_key(nil, namespace_id)
-                    return
-                end
-
-                table.insert(
-                    buffer,
-                    string.format(
-                        "[%s] %s",
-                        os.date("%Y-%m-%d %H:%M:%S"),
-                        vim.inspect(t)
-                    )
-                )
-                if #buffer >= 128 then
-                    vim.notify("Logging", vim.log.levels.INFO)
-                    for _, line in ipairs(buffer) do
-                        file:write(line .. "\n")
-                    end
-                    buffer = {}
-                    file:flush()
-                end
-            end)
-        end,
-    })
-end
+                end, 100)
+                -- end
+            end,
+        })
+    end,
+})

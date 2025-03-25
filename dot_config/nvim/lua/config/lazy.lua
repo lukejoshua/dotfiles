@@ -9,7 +9,14 @@ vim.print = _G.dd
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    local out = vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "--branch=stable",
+        lazyrepo,
+        lazypath,
+    })
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
             { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
@@ -28,8 +35,44 @@ require("lazy").setup({
     },
     spec = {
         -- add LazyVim and import its plugins
-        { "LazyVim/LazyVim", import = "lazyvim.plugins", branch = "v14" },
-        { "folke/lazy.nvim" },
+        {
+            "LazyVim/LazyVim",
+            import = "lazyvim.plugins"
+        },
+
+        { import = "lazyvim.plugins.extras.ai.copilot" },
+        { import = "lazyvim.plugins.extras.ai.copilot-chat" },
+
+        { import = "lazyvim.plugins.extras.coding.luasnip" },
+        { import = "lazyvim.plugins.extras.coding.yanky" },
+
+        { import = "lazyvim.plugins.extras.editor.mini-diff" },
+        { import = "lazyvim.plugins.extras.editor.illuminate" },
+
+        { import = "lazyvim.plugins.extras.lang.json" },
+        { import = "lazyvim.plugins.extras.lang.markdown" },
+        { import = "lazyvim.plugins.extras.lang.omnisharp" },
+        { import = "lazyvim.plugins.extras.lang.svelte" },
+        { import = "lazyvim.plugins.extras.lang.tailwind" },
+        { import = "lazyvim.plugins.extras.lang.typescript" },
+        { import = "lazyvim.plugins.extras.lang.vue" },
+        { import = "lazyvim.plugins.extras.lang.yaml" },
+
+        { import = "lazyvim.plugins.extras.linting.eslint" },
+
+        -- { import = "lazyvim.plugins.extras.test.core" },
+
+        { import = "lazyvim.plugins.extras.ui.treesitter-context" },
+
+        { import = "lazyvim.plugins.extras.util.chezmoi" },
+        { import = "lazyvim.plugins.extras.util.dot" },
+        { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+        { import = "lazyvim.plugins.extras.util.octo" },
+
+        { "nvim-neo-tree/neo-tree.nvim",                          enabled = false, },
+        { "akinsho/bufferline.nvim",                              enabled = false, },
+        { "stevearc/conform.nvim",                                enabled = false, },
+
         -- import/override with your plugins
         { import = "plugins" },
     },
@@ -42,7 +85,7 @@ require("lazy").setup({
         version = false, -- always use the latest git commit
         -- version = "*", -- try installing the latest stable version for plugins that support semver
     },
-    -- install = { colorscheme = { "catppuccin", "habamax" } },
+    install = { colorscheme = { "tokyonight", "habamax" } },
     checker = {
         enabled = true, -- check for plugin updates periodically
         notify = false, -- notify on update

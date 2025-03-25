@@ -1,12 +1,17 @@
-[user]
-	name = Luke Joshua
 [credential]
 {{ if eq .chezmoi.os "linux" }} 
-  helper = store
+    helper = store
 {{ else }}
-  helper = osxkeychain
+    helper = osxkeychain
 {{ end }}
+
 [pull]
 	rebase = false
 [init]
     defaultBranch = main
+
+[user]
+	name = Luke Joshua
+[includeIf "gitdir:~/projects/nova/"]
+    path = .gitconfig-nova
+

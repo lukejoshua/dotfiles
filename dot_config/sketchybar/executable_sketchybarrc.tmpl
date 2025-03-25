@@ -1,0 +1,112 @@
+#!/usr/bin/env fish
+
+# For inspiration: https://github.com/FelixKratz/dotfiles
+
+set -l bracketBg 0xAA2F334D
+set -l PLUGIN_DIR "$CONFIG_DIR/plugins"
+sketchybar --add event aerospace_workspace_change
+
+sketchybar \
+    --bar \
+    position=top \
+    color=$bracketBg \
+    height={{- .bar.heightOnExternalMonitor -}} \
+    notch_display_height={{- .bar.heightOnMacbook -}} \
+    sticky=off \
+    --default \
+    drawing=on \
+    icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
+    icon.highlight=off \
+    icon.color=0xffffffff \
+    icon.padding_left=4 \
+    icon.padding_right=4 \
+    label.font="JetBrainsMono Nerd Font:Bold:16.0" \
+    label.color=0xffffffff \
+    label.padding_left=10 \
+    label.padding_right=10 \
+    label.highlight=off \
+    background.drawing=on \
+    background.color=$bracketBg \
+    background.corner_radius=0 \
+    background.border_width=0 \
+    --add item aerospace_event_handler left \
+    --subscribe aerospace_event_handler aerospace_workspace_change \
+    --set aerospace_event_handler \
+    drawing=off \
+    script="$PLUGIN_DIR/aerospace.fish"
+
+sketchybar
+{{- range .workspaces -}}
+{{- $highlightColour := index . "colour" | default $.bar.defaultActiveWorkspaceColour | replace "#" "0xaa" -}}
+{{- $name := .name -}}
+{{- $onExternalMonitor := index . "externalMonitor" | default false -}}
+{{- $icon := .icon }} \
+    --add item {{ $name }} left \
+    --set {{ $name }} \
+    icon={{ $icon }} \
+    icon.highlight_color={{- $highlightColour -}} \
+    label="{{- $name -}}" \
+    label.highlight_color={{- $highlightColour -}} \
+    background.height={{- $onExternalMonitor | ternary 20 25 -}} \
+    background.color={{- $highlightColour -}} \
+    display={{- $onExternalMonitor | ternary 2 1 -}} \
+    click_script="aerospace workspace {{ $name }}" \
+    {{- end -}}
+{{- range untilStep 1 10 1 -}}
+{{- $highlightColour := $.bar.defaultActiveWorkspaceColour | replace "#" "0xaa" -}}
+{{- $name := . -}}
+{{- $icon := "󱊁" -}}
+{{- $onExternalMonitor := gt . 5 }} \
+    --add item {{ $name }} left \
+    --set {{ $name }} \
+    display={{- $onExternalMonitor |  ternary 2 1 -}} \
+    icon={{- $icon -}} \
+    icon.highlight_color={{- $highlightColour -}} \
+    label="{{- $name -}}" \
+    label.highlight_color={{- $highlightColour -}} \
+    background.height={{- $onExternalMonitor | ternary 20 25 -}} \
+    background.color={{- $highlightColour -}} \
+    click_script="aerospace workspace {{ $name }}" \
+    {{- end -}}
+--add item clock.1 right \
+    --set clock.1 \
+    display=1 \
+    update_freq=10 \
+    icon= \
+    icon.padding_right=8 \
+    script="$PLUGIN_DIR/clock.fish" \
+    --add item date.1 right \
+    --set date.1 \
+    display=1 \
+    update_freq=10 \
+    icon= \
+    script="$PLUGIN_DIR/date.fish" \
+    --add item clock.2 right \
+    --set clock.2 \
+    display=2 \
+    update_freq=10 \
+    icon= \
+    icon.padding_right=8 \
+    script="$PLUGIN_DIR/clock.fish" \
+    --add item date.2 right \
+    --set date.2 \
+    display=2 \
+    update_freq=10 \
+    icon= \
+    script="$PLUGIN_DIR/date.fish"
+
+# Force the bar to display the current state
+set -l focused_workspace (aerospace list-workspaces --focused)
+
+sketchybar --subscribe aerospace_event_handler aerospace_workspace_change
+
+{{ range .workspaces }}
+sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$focused_workspace PREV_WORKSPACE={{- .name -}}
+{{ end }}
+
+{{ range untilStep 1 10 1 }}
+sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$focused_workspace PREV_WORKSPACE={{- . -}}
+{{ end }}
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update

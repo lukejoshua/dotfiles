@@ -1,0 +1,65 @@
+{
+    "workspaces": [
+        {
+            "appId": "com.openai.chat",
+            "name": "A",
+            "externalMonitor": true,
+            "icon": ""
+        },
+        {
+            "appId": "company.thebrowser.Browser",
+            "name": "B",
+            "icon": "",
+            "colour": "#3E43F1"
+        },
+        {
+            "appId": "com.tinyspeck.slackmacgap",
+            "name": "C",
+            "icon": "󰒱",
+            "colour": "#4A154B"
+        },
+        {
+            "appId": "com.microsoft.Outlook",
+            "name": "E",
+            "icon": "󰴢",
+            "colour": "#0078D4"
+        },
+        {
+            "appId": "com.mitchellh.ghostty",
+            "name": "G",
+            "externalMonitor": true,
+            "icon": "",
+            "colour": "#293Db7"
+        },
+        {
+            "appId": "com.mockoon.app",
+            "name": "M",
+            "icon": "󱁘",
+            "colour": "#242830"
+        },
+        {
+            "appId": "md.obsidian",
+            "name": "O",
+            "icon": "󰠮",
+            "colour": "#483699"
+        },
+        {
+            "appId": "com.spotify.client",
+            "name": "S",
+            "icon": "",
+            "colour": "#1DB954"
+        },
+        {
+            "appId": "com.microsoft.teams2",
+            "name": "T",
+            "icon": "󰊻",
+            "colour": "#464EB8"
+        }
+    ],
+    "bar": {
+        "defaultActiveWorkspaceColour": "#2f43cd",
+        "heightOnMacbook": 35,
+        "heightOnExternalMonitor": 30,
+        "numericSpaceIcon": ""
+    }
+}

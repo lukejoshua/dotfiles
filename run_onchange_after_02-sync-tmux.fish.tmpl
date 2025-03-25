@@ -1,0 +1,14 @@
+#!/usr/bin/env fish
+
+# Had to put this here because it takes ages to run
+# .tmux.conf hash to create a dependency: {{ include "dot_tmux.conf" | sha256sum }}
+
+echo "Sourcing .tmux.conf ..."
+tmux source-file -v ~/.tmux.conf
+
+if test $status -eq 0
+    echo "✅ .tmux.conf sourced"
+else
+    echo "❌ tmux.conf could not be sourced"
+    exit $status
+end

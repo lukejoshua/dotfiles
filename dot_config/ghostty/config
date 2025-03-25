@@ -1,0 +1,10 @@
+command = /opt/homebrew/bin/fish
+font-size = 16
+background-opacity = 0.8
+background-blur-radius = 20
+window-padding-balance = true
+shell-integration = fish
+shell-integration-features = true
+macos-titlebar-style = hidden
+theme = tokyonight
+desktop-notifications = true

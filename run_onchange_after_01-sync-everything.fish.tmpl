@@ -12,6 +12,28 @@ else
     exit $status
 end
 
+echo "Starting SketchyVim..."
+
+brew services start svim
+if test $status -eq 0
+    echo "✅ SketchyVim started"
+else
+    echo "❌ SketchyVim could not be started"
+    exit $status
+end
+
+# aerospace.toml hash to create a dependency: {{ includeTemplate "dot_config/aerospace/aerospace.toml.tmpl" . | sha256sum }}
+
+echo "Reloading Aerospace config"
+aerospace reload-config
+
+if test $status -eq 0
+    echo "✅ Aerospace config reloaded"
+else
+    echo "❌ Aerospace config could not be reloaded"
+    exit $status
+end
+
 # config.fish hash to create a dependency: {{ include "dot_config/private_fish/config.fish" | sha256sum }}
 
 echo "Sourcing config.fish..."
@@ -23,6 +45,20 @@ else
     echo "❌ config.fish could not be sourced"
     exit $status
 end
+
+# sketchybarrc hash to create a dependency: {{ includeTemplate "dot_config/sketchybar/executable_sketchybarrc.tmpl" . | sha256sum }}
+# aerospace plugin hash to create a dependency: {{ include "dot_config/sketchybar/plugins/executable_aerospace.fish" | sha256sum }}
+
+echo "Restarting sketchybar..."
+brew services restart sketchybar
+
+if test $status -eq 0
+    echo "✅ sketchybar restarted"
+else
+    echo "❌ sketchybar could not be restarted"
+    exit $status
+end
+
 
 # .tool-versions hash to create a dependency: {{ include "dot_tool-versions" | sha256sum }}
 
@@ -37,5 +73,6 @@ else
     echo "❌ asdf install failed: .tool-versions file not found"
     exit 1
 end
+
 
 # .wezterm.lua hash to create a dependency: {{ include "dot_config/wezterm/wezterm.lua.tmpl" | sha256sum }}
