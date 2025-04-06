@@ -10,6 +10,7 @@
             "appId": "company.thebrowser.Browser",
             "name": "B",
             "icon": "",
+            "externalMonitor": true,
             "colour": "#3E43F1"
         },
         {
@@ -35,6 +36,7 @@
             "appId": "com.mockoon.app",
             "name": "M",
             "icon": "󱁘",
+            "externalMonitor": true,
             "colour": "#242830"
         },
         {

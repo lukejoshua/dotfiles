@@ -10,6 +10,7 @@ fish_add_path /Users/LukeJoshua/.rd/bin
 set -x EDITOR nvim
 set -x SHELL fish
 set -x XDG_CONFIG_HOME "$HOME/.config"
+set -g fish_term24bit 1
 
 # eza
 set -x EZA_CONFIG_DIR ~/.config/eza
@@ -37,6 +38,13 @@ abbr -a bb brew bundle --global
 # zellij
 abbr -a z zellij -l welcome
 
+# bun
+abbr -a bd bun dev
+abbr -a bi bun i
+abbr -a br bun run
+
+abbr -a rr rm -rfI
+
 # ASDF configuration code
 if test -z $ASDF_DATA_DIR
     set _asdf_shims "$HOME/.asdf/shims"
@@ -52,5 +60,7 @@ end
 set --erase _asdf_shims
 
 zoxide init --cmd c fish | source
-fzf --fish | source # fzf keybindings
+fzf_key_bindings
 batman --export-env | source
+
+

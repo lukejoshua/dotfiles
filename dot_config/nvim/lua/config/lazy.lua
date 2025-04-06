@@ -37,13 +37,11 @@ require("lazy").setup({
         -- add LazyVim and import its plugins
         {
             "LazyVim/LazyVim",
-            import = "lazyvim.plugins"
+            import = "lazyvim.plugins",
         },
 
         { import = "lazyvim.plugins.extras.ai.copilot" },
         { import = "lazyvim.plugins.extras.ai.copilot-chat" },
-
-        { import = "lazyvim.plugins.extras.coding.luasnip" },
         { import = "lazyvim.plugins.extras.coding.yanky" },
 
         { import = "lazyvim.plugins.extras.editor.mini-diff" },
@@ -51,15 +49,14 @@ require("lazy").setup({
 
         { import = "lazyvim.plugins.extras.lang.json" },
         { import = "lazyvim.plugins.extras.lang.markdown" },
-        { import = "lazyvim.plugins.extras.lang.omnisharp" },
-        { import = "lazyvim.plugins.extras.lang.svelte" },
-        { import = "lazyvim.plugins.extras.lang.tailwind" },
+        -- { import = "lazyvim.plugins.extras.lang.omnisharp" },
+        -- { import = "lazyvim.plugins.extras.lang.svelte" },
+        -- { import = "lazyvim.plugins.extras.lang.tailwind" },
         { import = "lazyvim.plugins.extras.lang.typescript" },
         { import = "lazyvim.plugins.extras.lang.vue" },
         { import = "lazyvim.plugins.extras.lang.yaml" },
 
-        { import = "lazyvim.plugins.extras.linting.eslint" },
-
+        -- { import = "lazyvim.plugins.extras.linting.eslint" },
         -- { import = "lazyvim.plugins.extras.test.core" },
 
         { import = "lazyvim.plugins.extras.ui.treesitter-context" },
@@ -69,9 +66,9 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
         { import = "lazyvim.plugins.extras.util.octo" },
 
-        { "nvim-neo-tree/neo-tree.nvim",                          enabled = false, },
-        { "akinsho/bufferline.nvim",                              enabled = false, },
-        { "stevearc/conform.nvim",                                enabled = false, },
+        { "nvim-neo-tree/neo-tree.nvim",                          enabled = false },
+        { "akinsho/bufferline.nvim",                              enabled = false },
+        { "stevearc/conform.nvim",                                enabled = false },
 
         -- import/override with your plugins
         { import = "plugins" },

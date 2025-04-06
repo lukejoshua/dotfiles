@@ -1,5 +1,67 @@
+local function symbols_filter(entry, ctx)
+  if ctx.symbols_filter == nil then
+    ctx.symbols_filter = LazyVim.config.get_kind_filter(ctx.bufnr) or false
+  end
+  if ctx.symbols_filter == false then
+    return true
+  end
+  return vim.tbl_contains(ctx.symbols_filter, entry.kind)
+end
+
 ---@type LazySpec[]
 return {
+    {
+        "ibhagwan/fzf-lua",
+        keys = {
+            {
+            "<leader>sS",
+            function()
+                require("fzf-lua").lsp_document_symbols({
+                regex_filter = symbols_filter,
+                })
+            end,
+            desc = "Goto Symbol",
+            },
+            {
+            "<leader>ss",
+            function()
+                require("fzf-lua").lsp_live_workspace_symbols({
+                regex_filter = symbols_filter,
+                })
+            end,
+            desc = "Goto Symbol (Workspace)",
+            },
+        }
+    },
+    {
+
+        ---@type vim.lsp.Config
+        "neovim/nvim-lspconfig",
+        opts = {
+            setup = {
+                eslint = function()
+                    require("lazyvim.util").lsp.on_attach(function(client)
+                        if client.name == "eslint" then
+                            client.server_capabilities.documentFormattingProvider = true
+                        else
+                            client.server_capabilities.documentFormattingProvider = false
+                        end
+                    end)
+                end,
+            },
+        },
+
+        init = function()
+            vim.diagnostic.config({
+            virtual_text = {
+                format = function(diagnostic)
+                    vim.notify('formatting' .. diagnostic.source)
+                    return string.format("%s", diagnostic.message)
+                end,
+            },
+            })
+        end
+    },
     {
         "folke/tokyonight.nvim",
         lazy = false,
@@ -41,6 +103,7 @@ return {
                 },
                 lualine_b = {
                     LazyVim.lualine.root_dir(),
+                    "branch"
                 },
                 lualine_c = {
                     {
@@ -52,7 +115,6 @@ return {
                     { LazyVim.lualine.pretty_path() },
                 },
                 lualine_y = {
-                    "branch"
                 },
                 lualine_z = {
                     "location",
@@ -139,18 +201,6 @@ return {
                 change = "cs",
             },
         },
-    },
-    {
-        "vimpostor/vim-tpipeline",
-        dependencies = {
-            "nvim-lualine/lualine.nvim",
-        },
-        lazy = false,
-        config = function()
-            vim.g.tpipeline_fillcentre = 1
-            vim.g.tpipeline_restore = 1
-            vim.g.tpipeline_clearstl = 1
-        end,
     },
     {
         "otavioschwanck/arrow.nvim",

@@ -11,14 +11,6 @@ local help_split_group = vim.api.nvim_create_augroup("HelpSplit", {
     clear = true,
 })
 
--- Hack to remove duplicate status bar
-vim.api.nvim_create_autocmd("BufEnter", {
-    group = vim.api.nvim_create_augroup("LastStatusOnBufEnter", { clear = true }),
-    callback = function()
-        vim.o.laststatus = 0
-    end,
-})
-
 vim.api.nvim_create_autocmd("Filetype", {
     pattern = { "help", "man" },
     desc = [[ Open new help splits to the right. ]],
