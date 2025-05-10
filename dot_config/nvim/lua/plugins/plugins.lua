@@ -10,6 +10,28 @@ end
 
 ---@type LazySpec[]
 return {
+    -- https://github.com/LazyVim/LazyVim/issues/6039#issuecomment-2856227817
+    { "mason-org/mason.nvim", version = "1.11.0" },
+    { "mason-org/mason-lspconfig.nvim", version = "1.32.0" },
+
+    {
+        "christoomey/vim-tmux-navigator",
+        cmd = {
+            "TmuxNavigateLeft",
+            "TmuxNavigateDown",
+            "TmuxNavigateUp",
+            "TmuxNavigateRight",
+            "TmuxNavigatePrevious",
+            "TmuxNavigatorProcessList",
+        },
+        keys = {
+            { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+            { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+            { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+            { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+            { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+        },
+    },
     {
         "ibhagwan/fzf-lua",
         keys = {
@@ -49,6 +71,11 @@ return {
                     end)
                 end,
             },
+            diagnostics = {
+                virtual_text = false,
+                virtual_lines = true,
+                -- You can also customize other options here
+                },
         },
 
         init = function()
@@ -212,5 +239,23 @@ return {
             leader_key = ',',        -- Recommended to be a single key
             buffer_leader_key = 'm', -- Per Buffer Mappings
         }
-    }
+    },
+    {
+        'Wansmer/treesj',
+        keys = {
+            { "<leader>m", "<CMD>TSJToggle<CR>", desc = "TreeSJ toggle" },
+        },
+        dependencies = { 'nvim-treesitter/nvim-treesitter' }, -- if you install parsers with `nvim-treesitter`
+        opts = {
+            ---@type boolean Use default keymaps (<space>m - toggle, <space>j - join, <space>s - split)
+            use_default_keymaps = false,
+
+            ---@type boolean Node with syntax error will not be formatted
+            check_syntax_error = false,
+
+            ---If line after join will be longer than max value,
+            ---@type number If line after join will be longer than max value, node will not be formatted
+            max_join_length = 1024
+        },
+    },
 }

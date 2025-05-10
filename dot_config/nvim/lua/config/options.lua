@@ -6,7 +6,7 @@ vim.g.snacks_animate = false
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.g.autoformat = false
+vim.g.autoformat = true
 vim.o.showtabline = 0
 
 vim.o.scrolloff = 999

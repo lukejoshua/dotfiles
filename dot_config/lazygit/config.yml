@@ -1,41 +1,41 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
 
 gui:
-   expandFocusedSidePanel: true
-   language: en
-   sidePanelWidth: 0.25
-   showNumstatInFilesView: true
-   nerdFontsVersion: "3"
-   showCommandLog: false
-   border: single
-   statusPanelView: allBranchesLog
-   filterMode: fuzzy
-   showDivergenceFromBaseBranch: arrowAndNumber
-   theme:
-     activeBorderColor:
-       - "#ff9e64"
-       - "bold"
-     inactiveBorderColor:
-       - "#27a1b9"
-     searchingActiveBorderColor:
-       - "#ff9e64"
-       - "bold"
-     optionsTextColor:
-       - "#7aa2f7"
-     selectedLineBgColor:
-       - "#283457"
-     cherryPickedCommitFgColor:
-       - "#7aa2f7"
-     cherryPickedCommitBgColor:
-       - "#bb9af7"
-     markedBaseCommitFgColor:
-       - "#7aa2f7"
-     markedBaseCommitBgColor:
-       - "#e0af68"
-     unstagedChangesColor:
-       - "#db4b4b"
-     defaultFgColor:
-       - "#c0caf5"
+  expandFocusedSidePanel: true
+  language: en
+  sidePanelWidth: 0.25
+  showNumstatInFilesView: true
+  nerdFontsVersion: "3"
+  showCommandLog: false
+  border: single
+  statusPanelView: allBranchesLog
+  filterMode: fuzzy
+  showDivergenceFromBaseBranch: arrowAndNumber
+  theme:
+    activeBorderColor:
+      - "#ff9e64"
+      - "bold"
+    inactiveBorderColor:
+      - "#27a1b9"
+    searchingActiveBorderColor:
+      - "#ff9e64"
+      - "bold"
+    optionsTextColor:
+      - "#7aa2f7"
+    selectedLineBgColor:
+      - "#283457"
+    cherryPickedCommitFgColor:
+      - "#7aa2f7"
+    cherryPickedCommitBgColor:
+      - "#bb9af7"
+    markedBaseCommitFgColor:
+      - "#7aa2f7"
+    markedBaseCommitBgColor:
+      - "#e0af68"
+    unstagedChangesColor:
+      - "#db4b4b"
+    defaultFgColor:
+      - "#c0caf5"
 
 git:
   paging:
@@ -45,16 +45,17 @@ git:
     - main
     - master
     - develop
-  branchLogCmd: fish -c git_branch_status {{branchName} --}
+  # branchLogCmd: fish -c git_branch_status {{branchName} --}
   # allBranchesLogCmds:
   # - echo wello
 
-#   skipHookPrefix: WIP
-#   autoFetch: true
-#   autoRefresh: true
-#   fetchAll: true
-#   autoStageResolvedConflicts: true
-#   branchLogCmd: git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName} --}
+  #   skipHookPrefix: WIP
+  #   autoFetch: true
+  #   autoRefresh: true
+  #   fetchAll: true
+  #   autoStageResolvedConflicts: true
+  branchLogCmd: git log {{branchName}} --graph --date=relative --pretty=format:'%Cblue[%an] %C(auto)%h %Cgreen%ad%Creset %s'
+  # branchLogCmd: fish /Users/LukeJoshua/.config/fish/gitstuff.fish {{branchName} --}
 #   allBranchesLogCmd: git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium
 #   overrideGpg: false
 #   disableForcePushing: false
